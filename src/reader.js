@@ -1,7 +1,6 @@
 'use strict';
 
-var fs = require('fs'),
-    writer = require('./writer');
+var fs = require('fs');
 
 function read (filePath) {
 

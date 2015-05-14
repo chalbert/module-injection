@@ -15,6 +15,7 @@ module.exports = function appHandler (resource, req, res) {
             <title>${resource.title}</title>
             <script src="vendor/angular/angular.js"></script>
             <script src="bootstrap/${resource.name}.js"></script>
+            <script src="apps/setup/setup-ctrl.js"></script>
         </head>
     `);
 

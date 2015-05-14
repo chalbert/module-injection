@@ -9,7 +9,7 @@ module.exports = function staticHandler (resource, req, res) {
 
     res.writeHead(200, getFileHeaders(req.url));
 
-    reader.read(`platform/` + req.url)
+    reader.read(resource.dir + req.url)
         .then(function (fileContent) {
             res.write(fileContent);
             res.end();

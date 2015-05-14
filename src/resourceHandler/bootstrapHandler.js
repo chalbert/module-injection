@@ -6,12 +6,12 @@ module.exports = function appHandler (resource, req, res) {
 
     console.log('[bootstrapHandler]');
 
+    var appName = req.url.match(/bootstrap\/(.*)\.js/)[1];
+
     res.writeHead(200, getTypeHeaders('js'));
 
     res.write(`
-        (function(){
-           console.log('bootstrap');
-        })();
+        angular.module('${appName}', []);
     `);
 
     res.end();

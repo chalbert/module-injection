@@ -1,3 +1,7 @@
-<body>
-    Setup! Yeah!
+<body ng-controller="SetupCtrl as setupCtrl">
+    <h1>Setup Page</h1>
+    <form>
+        <div><input type="checkbox" ng-model="taxInclusive"> Tax inclusive</div>
+        <button type="submit">Save</button>
+    </form>
 </body>
