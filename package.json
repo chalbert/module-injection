@@ -1,0 +1,17 @@
+{
+  "name": "microservices",
+  "version": "0.1.0",
+  "description": "https://coderwall.com/p/2gfk4w/your-first-spdy-app",
+  "main": "index.js",
+  "dependencies": {
+    "rework": "^1.0.1",
+    "spdy": "^1.32.0",
+    "babel": "^5.2.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

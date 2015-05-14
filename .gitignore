@@ -1,0 +1,29 @@
+# Assets
+assets/cache/*
+web/*
+
+# Build artifacts
+rev/**
+build/**
+
+# Node
+node_modules/*
+npm-debug.log
+
+# Sass
+.sass-cache
+
+# Bower
+bower_components/
+
+# Local development
+webregister.sublime-workspace
+
+# Selenium reports
+selenium-junit.xml
+
+# PHP Storm IDE
+.idea
+
+# Ignore cert keys
+keys/**
