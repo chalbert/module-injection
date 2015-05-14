@@ -1,0 +1,14 @@
+<body ng-controller="RegisterCtrl as registerCtrl">
+    <vd-nav></vd-nav>
+    <vd-main>
+        <vd-title>Register Page</vd-title>
+        <div>{{registerCtrl.lang.welcome}}</div>
+        <div>
+            <label>Amount</label> <input ng-model="registerCtrl.sale.amount">
+        </div>
+        <div>
+            Total: {{registerCtrl.getTotal()}}
+        </div>
+        <vd-submit-button type="submit" ng-click="registerCtrl.submit()">Save</vd-submit-button>
+    </vd-main>
+</body>

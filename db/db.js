@@ -1,5 +1,11 @@
 'use strict';
 
 module.exports = {
-    settings: {}
+    sales: {
+        amount: 0
+    },
+    settings: {
+        lang: 'en',
+        taxInclusive: false
+    }
 };

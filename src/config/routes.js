@@ -7,7 +7,7 @@ module.exports = [
     },
     {
         match: /^\/$/,
-        link: 'setup'
+        link: '/setup'
     },
     {
         match: /^\/bootstrap\//,
@@ -29,9 +29,15 @@ module.exports = [
         dir: ''
     },
     {
-        match: /^setup/,
+        match: /^\/setup/,
         handler: 'app',
         name: 'setup',
         title: 'Setup Page'
     },
+    {
+        match: /^\/register/,
+        handler: 'app',
+        name: 'register',
+        title: 'Register Page'
+    }
 ];

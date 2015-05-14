@@ -1,8 +1,14 @@
 <body ng-controller="SetupCtrl as setupCtrl">
-    <vd-title>Setup Page</vd-title>
-    test: {{setupCtrl.test}}
-    <form>
-        <div><input type="checkbox" ng-model="taxInclusive"> Tax inclusive</div>
-        <button type="submit" ng-click="setupCtrl.submit()">Save</button>
-    </form>
+    <vd-nav></vd-nav>
+    <vd-main>
+        <vd-title>Setup Page</vd-title>
+        <form>
+            <div><input type="checkbox" ng-model="setupCtrl.settings.taxInclusive"> Tax inclusive</div>
+            <div>
+                <input type="radio" ng-model="setupCtrl.settings.lang" value="en"> English
+                <input type="radio" ng-model="setupCtrl.settings.lang" value="fr"> Français
+            </div>
+            <vd-submit-button type="submit" ng-click="setupCtrl.submit()">Save</vd-submit-button>
+        </form>
+    </vd-main>
 </body>

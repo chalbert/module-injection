@@ -2,12 +2,10 @@
  * SetupController
  */
 angular.module('setup').controller('SetupCtrl', function (settingsResource) {
-    var ctrl = this;
+    this.settings = settingsResource.get();
 
     this.submit = function () {
-        settingsResource.save({
-            taxInclusive: Boolean(ctrl.taxInclusive)
-        });
-    }
+        settingsResource.save(this.settings);
+    };
 
 });

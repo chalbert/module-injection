@@ -8,6 +8,8 @@ module.exports = function appHandler (resource, req, res) {
 
     res.writeHead(200, getTypeHeaders('html'));
 
+    var ctrl = `apps/${resource.name}/${resource.name}-ctrl.js`;
+
     res.write(`
         <!DOCTYPE html>
         <html ng-app="${resource.name}">
@@ -16,14 +18,14 @@ module.exports = function appHandler (resource, req, res) {
             <title>${resource.title}</title>
             <script src="vendor/angular/angular.js"></script>
             <script src="bootstrap/${resource.name}.js"></script>
-            <script src="apps/setup/setup-ctrl.js"></script>
+            <script src="${ctrl}"></script>
     `);
 
     var appPath = `apps/${resource.name}/${resource.name}.html`;
 
     Promise.all([
         reader.read(appPath),
-        injector.analyseFile('apps/setup/setup-ctrl.js').then(function (deps) {
+        injector.analyseFile(ctrl).then(function (deps) {
             console.log('[appHandler] services', deps);
             injector.inject(deps, res)
         })
