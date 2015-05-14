@@ -7,6 +7,10 @@ var spdy = require('spdy'),
 
 console.log('[server] Start');
 
+process.on('uncaughtException', function (error) {
+    console.log(error.stack);
+});
+
 var server = spdy.createServer(spdyConfig, function(req, res) {
     router(req.url, req, res);
 });

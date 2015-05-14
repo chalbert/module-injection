@@ -11,7 +11,8 @@ module.exports = function appHandler (resource, req, res) {
     res.writeHead(200, getTypeHeaders('js'));
 
     res.write(`
-        angular.module('${appName}', []);
+        angular.module('vend', []);
+        angular.module('${appName}', ['vend']);
     `);
 
     res.end();

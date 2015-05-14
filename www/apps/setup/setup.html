@@ -1,7 +1,8 @@
 <body ng-controller="SetupCtrl as setupCtrl">
     <h1>Setup Page</h1>
+    test: {{setupCtrl.test}}
     <form>
         <div><input type="checkbox" ng-model="taxInclusive"> Tax inclusive</div>
-        <button type="submit">Save</button>
+        <button type="submit" ng-click="setupCtrl.submit()">Save</button>
     </form>
 </body>

@@ -2,6 +2,10 @@
 
 module.exports = [
     {
+        match: /^\/api\//,
+        handler: 'api'
+    },
+    {
         match: /^\/$/,
         link: 'setup'
     },
@@ -18,6 +22,11 @@ module.exports = [
         match: /^\/vendor\//,
         handler: 'static',
         dir: 'platform'
+    },
+    {
+        match: /^\/platform\//,
+        handler: 'static',
+        dir: ''
     },
     {
         match: /^setup/,

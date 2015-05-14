@@ -11,6 +11,7 @@ module.exports = function staticHandler (resource, req, res) {
 
     reader.read(resource.dir + req.url)
         .then(function (fileContent) {
+            console.log('[staticHandler] done');
             res.write(fileContent);
             res.end();
         });

@@ -2,5 +2,6 @@
 
 module.exports = {
     html: 'text/html',
-    js: 'application/javascript'
+    js: 'application/javascript',
+    json: 'application/json'
 };
