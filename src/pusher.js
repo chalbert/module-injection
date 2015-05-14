@@ -2,18 +2,6 @@
 
 var reader = require('./reader');
 
-function getHeaders (type) {
-    var headers = {};
-    headers['Content-Type'] = contentTypes[type];
-    return headers;
-}
-
-function getFileHeaders (filePath) {
-    var extension = getExtention(filePath);
-    return getHeaders(extension);
-}
-
-
 function push (filePath, res) {
 
     var stream = res.push(filePath, getFileHeaders(filePath));
@@ -29,3 +17,13 @@ function push (filePath, res) {
 }
 
 module.exports = { push: push };
+
+
+// This is our awesome dependency manager!
+//if (req.url === '/index.html') {
+//    push('/main.html', res),
+//    push('/footer.html', res),
+//    push('/header.html', res),
+//    push('/nav.html', res),
+//    push('/services/components/u-view/u-view.html', res)
+//}

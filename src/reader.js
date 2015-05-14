@@ -1,6 +1,8 @@
 'use strict';
 
-var getExtension = require('./utils/getExtension');
+var fs = require('fs'),
+    getExtension = require('./util/getExtension'),
+    getFileHeaders = require('./util/getFileHeaders');
 
 function read (filePath, fn) {
     fs.readFile('www/' + filePath, 'utf8', function (err, fileContent) {
