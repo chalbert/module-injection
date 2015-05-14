@@ -2,7 +2,7 @@
 
 var reader = require('../reader'),
     getTypeHeaders = require('../util/getTypeHeaders'),
-    locator = require('../locator');
+    injector = require('../injector');
 
 module.exports = function appHandler (resource, req, res) {
 
@@ -19,22 +19,27 @@ module.exports = function appHandler (resource, req, res) {
             <script src="apps/setup/setup-ctrl.js"></script>
     `);
 
+    var appPath = `apps/${resource.name}/${resource.name}.html`;
 
     Promise.all([
-        reader.read(`apps/${resource.name}/${resource.name}.html`),
-        locator.services('apps/setup/setup-ctrl.js').then(function (services) {
-
-            console.log('[appHandler] services', services);
-
-            res.write(services.map(function (service) {
-                return `<script src="${service}"></script>`;
-            }).join('\n'));
+        reader.read(appPath),
+        injector.analyseFile('apps/setup/setup-ctrl.js').then(function (deps) {
+            console.log('[appHandler] services', deps);
+            injector.inject(deps, res)
         })
     ]).then(function (results) {
+        var appContent = results[0];
 
-        res.write('</head>');
-        res.write(results[0]);
-        res.end();
+        injector.analyseContent(appPath, appContent).then(function (deps) {
+            console.log('[appHandler] components', deps);
+
+            injector.inject(deps, res);
+
+            res.write('</head>');
+            res.write(appContent);
+            res.end();
+        });
+
     }).catch(function (err) {
         console.error(err)
     });

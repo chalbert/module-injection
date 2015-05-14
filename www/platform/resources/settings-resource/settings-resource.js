@@ -1,4 +1,4 @@
-angular.module('vend').factory('settingsResource', function ($http) {
+angular.module('vd').factory('settingsResource', function ($http) {
 
     return {
         save: function (data) {
