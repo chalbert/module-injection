@@ -3,10 +3,12 @@
 var routes = require('./config/routes');
 
 function getResource (url) {
-    var route = routes[url];
+    var route = routes.find(function (route) {
+        return url.match(route.match);
+    });
 
-    if (typeof route === 'string' && route.match(/^@(.*)/)) {
-        route = getResource(route.match(/^@(.*)/)[1]);
+    if (route.link) {
+        route = getResource(route.link);
     }
 
     console.log('[server] route', route);
@@ -21,6 +23,6 @@ module.exports = function router(url, req, res) {
 
     var resource = getResource(url);
 
-    require('./resourceHandler/' + resource.handler + 'Handler')(resource, res, res);
+    require('./resourceHandler/' + resource.handler + 'Handler')(resource, req, res);
 
 };

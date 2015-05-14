@@ -13,12 +13,14 @@ module.exports = function appHandler (resource, req, res) {
         <head lang="en">
             <meta charset="UTF-8">
             <title>${resource.title}</title>
+            <script src="vendor/angular/angular.js"></script>
+            <script src="bootstrap/${resource.name}.js"></script>
         </head>
     `);
 
     reader.read(`apps/${resource.name}/${resource.name}.html`)
         .then(function (appContent) {
-            req.write(appContent);
-            req.end();
+            res.write(appContent);
+            res.end();
         });
 }

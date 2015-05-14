@@ -4,9 +4,10 @@
   "description": "https://coderwall.com/p/2gfk4w/your-first-spdy-app",
   "main": "index.js",
   "dependencies": {
+    "array.prototype.find": "^1.0.0",
+    "babel": "^5.2.6",
     "rework": "^1.0.1",
-    "spdy": "^1.32.0",
-    "babel": "^5.2.6"
+    "spdy": "^1.32.0"
   },
   "devDependencies": {},
   "scripts": {
