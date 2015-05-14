@@ -1,5 +1,10 @@
 'use strict';
 
 module.exports = {
-    '/': 'apps/layout.html'
+    '/': '@setup',
+    'setup': {
+        handler: 'app',
+        name: 'setup',
+        title: 'Setup Page'
+    }
 };
