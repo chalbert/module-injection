@@ -1,0 +1,20 @@
+{
+  "name": "module-injection",
+  "version": "0.0.0",
+  "homepage": "https://github.com/chalbert/module-injection",
+  "authors": [
+    "Nicolas Gilbert <nicolas.gilbert@vendhq.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "www/platform/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.3.15"
+  }
+}
