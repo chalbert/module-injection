@@ -218,6 +218,7 @@ Few of the benefits:
     - Reduce the risk of old business rules compromising data or increasing support cost.
     - Instant update of UI over every app - perfect for consistency and theming.
 - Some js can be generated, e.g. Resource services generated from API contract
+- Mock some Module for automated test
 
 ### Performance considerations
 
