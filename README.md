@@ -136,18 +136,19 @@ In this example, it parses the js files for Angular services, and the html for c
 Then, thanks to some rules & conventions, it knows which files to inject.
 
 In summary:
-1. Static analysis to build a dependency tree
+
+1. Static analysis of the code to build a dependency tree.
 2. Use a service locator to find what actual file each dependency resolves to.
 
 ### Dynamic dependency resolution
 
 Because the html is generated at runtime instead of build time, it's possible to do really interesting things.
 
-If you go on the Register page and look the source, you will see tha the `registerCtrl` injects 2 services:
+If you go on the Register app and look the source, you will see that the `registerCtrl` injects 2 services:
 - lang
 - taxPolicy
  
-Now, if you look in the running app, you'll find that by default, those services are returned:
+If you look in the running app, you'll find that by default, those services are returned:
 
 Lang:
 ```
@@ -166,9 +167,9 @@ angular.module('vd').factory('taxPolicy', function () {
 });
 ```
 
-Now, on the setup page, tick the "taxInclusive" checkbox, choose French as language, and click save.
+On the setup page, tick the "taxInclusive" checkbox, choose French as language, and click save.
 
-Return to the register app. The welcome text now says "Bienvenue!", and the total includes tax. Let's look at what module have been injected.
+Return to the Register app. The welcome text now says "Bienvenue!", and the total includes tax. Let's look at what modules have been injected.
 
 Lang:
 ```
@@ -198,10 +199,11 @@ Few of the benefits:
     - `platform/policies/tax-policies/exclusive-tax-policy--angular.js`
     - `platform/policies/tax-policies/exclusive-tax-policy--commonjs.js`
     - `platform/policies/tax-policies/exclusive-tax-policy--es6.js`
-- Same logic can be served as REST API, e.g. to enforce same validation rules using shared policies
+- Same logic can be served as REST API
+- Logic can be shared with the server, e.g. to enforce the same validation rules on the server using shared policies
+- No bower install / npm install / gulp required to run the client. It uses "Build as a Service". Great when non-engineering team needs to run the apps.
 - Build based on browser feature - e.g. do not transpile if browser is ES6 compatible
     - `platform/policies/tax-policies/exclusive-tax-policy--angular--es6.js`
-- No bower install / npm install required to run the client. It uses "Build as a Service".
 - The Module Locator can use any set of rules required, including:
     - Languages
     - Location
@@ -210,20 +212,25 @@ Few of the benefits:
     - Settings, like custom business rules
     - Themes
     - Etc.
-- Apps treat Modules as API, not dependencies to be embedded. This enables "auto-update" apps. On the long term, this will greatly reduce maintenance cost and technical debt.
+- Apps treat Modules as API, not dependencies to be embedded. 
+    - This means "evergreen" apps. On the long term, this will greatly reduce maintenance cost and technical debt.
+    - Reduce the risk of old business rules compromising data or increasing support cost.
+    - Instant update of UI over every app - perfect for consistency and theming.
+- Some js can be generated, e.g. Resource services generated from API contract
 
 ### Performance considerations
 
-For complex app, the number of dependency will quickly become very large. This would become a problem with HTTP/1.1 as the number of concurrent request is usually around 6. But that changes with the introduction of SPDY / HTTP/2.
+For complex apps, the number of dependencies will quickly become very large. This would become a problem with HTTP/1.1 as the number of concurrent requests is usually around 6. But that changes with the introduction of SPDY / HTTP/2.
 
 This new approach can in fact improve dramatically the performance of the apps using Module Injection:
 
 - Only one instance of a Module exist, so there are shared by every apps, instead of having the same code embedded in each app.
 - HTTP/2 multiplexes all the small files efficiently.
 - Server knows all the files the clients needs and uses HTTP Push to sent everything that is needed upfront.
-- Cache API & Services Worker mean individual files can be be cache, and updated in the background.
-- Each Module URL is idempotent, so they can be can efficiently on the server.
-- Static analysis of the files for dependencies only needs to happen once and can then be cached.
+- Cache API & Services Worker mean individual files can be cached, and updated in the background.
+- Each Module URL is idempotent, so they can be can efficiently cached or deployed on CDN.
+- Static analysis of the files for dependencies only needs to happen once.
+- File name doesn't matter to the app thanks to DI, so they can include a cache busting part.
 
 ### Challenges
 
