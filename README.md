@@ -103,6 +103,7 @@ angular.module('setup').controller('SetupCtrl', function (settingsResource) {
 You may notice few things:
 - No head. No script tags.
 - No CommonJs/AMD
+- No module loader (browserify / Require)
 - Html uses some components
 - Js uses some custom services
 
