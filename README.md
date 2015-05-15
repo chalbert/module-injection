@@ -126,7 +126,7 @@ Looking at the source code of the html in the browser may shed some light:
   <script src="platform/components/vd-submit-button/vd-submit-button.js"></script>
 </head>
 ```
-All the required dependency have been injected into the html file. **This is Module Injection**.
+All the required dependencies have been injected into the html file. **This is Module Injection**.
 
 ## How it works
 
@@ -201,8 +201,8 @@ Few of the benefits:
     - `platform/policies/tax-policies/exclusive-tax-policy--commonjs.js`
     - `platform/policies/tax-policies/exclusive-tax-policy--es6.js`
 - Same logic can be served as REST API
-- Logic can be shared with the server, e.g. to enforce the same validation rules on the server using shared policies
-- No bower install / npm install / gulp required to run the client. It uses "Build as a Service". Great when non-engineering team needs to run the apps.
+- Logic can be shared with the server, e.g. to enforce the same validation rules on the server using shared policies.
+- No bower install / npm install / gulp required to run the client. It uses "Build as a Service". Great when non-engineer team member need to run the apps.
 - Build based on browser feature - e.g. do not transpile if browser is ES6 compatible
     - `platform/policies/tax-policies/exclusive-tax-policy--angular--es6.js`
 - The Module Locator can use any set of rules required, including:
@@ -237,7 +237,7 @@ This new approach can in fact improve dramatically the performance of the apps u
 
 Of course there are still interesting problems to be solved:
 - Automated test coverage must be really good to catch regression over many apps
-- Automated test must be able to know what apps consumer what modules. Should be feasible if it talks to the same Module Injection API.
+- Automated test must be able to know what apps consume what modules. Should be feasible if it talks to the same Module Injection API.
 - Caching is possible but more complex
 
 ### Disclaimer
