@@ -203,6 +203,10 @@ Few of the benefits:
     - Location
     - Type of account (e.g. trial vs premium)
     - Experiments being run
+    - Settings, like custom business rules
+    - Themes
+    - Etc.
+- Apps treat Modules as API, not dependencies to be embedded. This enables "auto-update" apps. On the long term, this will greatly reduce maintenance cost and technical debt.
 
 ### Performance considerations
 
@@ -216,3 +220,10 @@ This new approach can in fact improve dramatically the performance of the apps u
 - Cache API & Services Worker mean individual files can be be cache, and updated in the background.
 - Each Module URL is idempotent, so they can be can efficiently on the server.
 - Static analysis of the files for dependencies only needs to happen once and can then be cached.
+
+### Challenges
+
+Of course there are still interesting problems to be solved:
+- Automated test coverage must be really good to catch regression over many apps
+- Automated test must be able to know what apps consumer what modules. Should be feasible if it talks to the same Module Injection API.
+- Caching is possible but more complex
