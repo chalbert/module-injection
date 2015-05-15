@@ -132,7 +132,7 @@ All the required dependencies have been injected into the html file. **This is M
 
 In short, when asking for an app route, the server parses the files for dependencies, and injects them in the head.
 
-In this example, it parses the js files for Angular services, and the html for custom component. But it could be anything things, including ES6 imports, html templates, css imports, etc.
+In this example, it parses the js files for Angular services, and the html for custom component. But it could be anything, including ES6 imports, html templates, css imports, views, etc. It's also worth noting that this proof-of-concept uses Angular, but it could work with any framework.
 
 Then, thanks to some rules & conventions, it knows which files to inject.
 
