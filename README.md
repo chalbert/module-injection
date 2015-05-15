@@ -35,4 +35,12 @@ If you've got iojs as main node version, you can do: `node index.js`
 
 Otherwise: `nvm run iojs index.js`
 
+Then navigate to `https://localhost:3333`
+
+You should see something like:
+
+~[setup page](./readme-content/setup-page.png)
+
+## How it works
+
 
