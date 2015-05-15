@@ -106,9 +106,9 @@ You may notice few things:
 - Html uses some components
 - Js uses some custom services
 
-Still, when we load the app, it works. You can save data to the server by clicking save. The ui components display properly. 
+Still, when we load the app, it works without having to specify any of that. You can save data to the server by clicking save. The ui components display properly. 
 
-Looking at the source code of the html may bring some light:
+Looking at the source code of the html in the browser may shed some light:
 ```
 <!DOCTYPE html>
 <html ng-app="setup">
@@ -129,11 +129,15 @@ All the required dependency have been injected into the html file. **This is Mod
 
 ## How it works
 
-In short, when asking for an app route, the server parses the files for dependencies, and inject them in the head.
+In short, when asking for an app route, the server parses the files for dependencies, and injects them in the head.
 
 In this example, it parses the js files for Angular services, and the html for custom component. But it could be anything things, including ES6 imports, html templates, css imports, etc.
 
 Then, thanks to some rules & conventions, it knows which files to inject.
+
+In summary:
+1. Static analysis to build a dependency tree
+2. Use a service locator to find what actual file each dependency resolves to.
 
 ### Dynamic dependency resolution
 
@@ -227,3 +231,7 @@ Of course there are still interesting problems to be solved:
 - Automated test coverage must be really good to catch regression over many apps
 - Automated test must be able to know what apps consumer what modules. Should be feasible if it talks to the same Module Injection API.
 - Caching is possible but more complex
+
+### Disclaimer
+
+This proof-of-concept has been built in only few hours, so this implementation is certainly not the nicest possible. Still, I hope it gives a decent introduction to this experimental concept.
