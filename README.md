@@ -128,3 +128,91 @@ Looking at the source code of the html may bring some light:
 All the required dependency have been injected into the html file. **This is Module Injection**.
 
 ## How it works
+
+In short, when asking for an app route, the server parses the files for dependencies, and inject them in the head.
+
+In this example, it parses the js files for Angular services, and the html for custom component. But it could be anything things, including ES6 imports, html templates, css imports, etc.
+
+Then, thanks to some rules & conventions, it knows which files to inject.
+
+### Dynamic dependency resolution
+
+Because the html is generated at runtime instead of build time, it's possible to do really interesting things.
+
+If you go on the Register page and look the source, you will see tha the `registerCtrl` injects 2 services:
+- lang
+- taxPolicy
+ 
+Now, if you look in the running app, you'll find that by default, those services are returned:
+
+Lang:
+```
+// platform/languages/en/en.js
+angular.module('vd').constant('lang',{
+    welcome: 'Welcome!'
+});
+```
+TaxPolicy:
+```
+// platform/policies/tax-policies/exclusive-tax-policy.js
+angular.module('vd').factory('taxPolicy', function () {
+    return function (amount) {
+        return amount;
+    }
+});
+```
+
+Now, on the setup page, tick the "taxInclusive" checkbox, choose French as language, and click save.
+
+Return to the register app. The welcome text now says "Bienvenue!", and the total includes tax. Let's look at what module have been injected.
+
+Lang:
+```
+// platform/languages/fr/fr.js
+angular.module('vd').constant('lang',{
+    welcome: 'Bienvenue!'
+});
+```
+TaxPolicy:
+```
+// platform/policies/tax-policies/inclusive-tax-policy.js
+angular.module('vd').factory('taxPolicy', function () {
+    return function (amount) {
+        return amount * 1.15;
+    }
+});
+```
+
+The files are not the same, but because they register the same Angular DI module name, it doesn't matter.
+
+### Benefits
+
+Few of the benefits:
+
+- Each file has a unique URL, so they can be individually cached. For a single URL, the **content will not change**. This is event better with the new [Cache API](https://developer.mozilla.org/en-US/docs/Web/API/Cache).
+- Same module can be returned with different wrapper, e.g.
+    - `platform/policies/tax-policies/exclusive-tax-policy--angular.js`
+    - `platform/policies/tax-policies/exclusive-tax-policy--commonjs.js`
+    - `platform/policies/tax-policies/exclusive-tax-policy--es6.js`
+- Same logic can be served as REST API, e.g. to enforce same validation rules using shared policies
+- Build based on browser feature - e.g. do not transpile if browser is ES6 compatible
+    - `platform/policies/tax-policies/exclusive-tax-policy--angular--es6.js`
+- No bower install / npm install required to run the client. It uses "Build as a Service".
+- The Module Locator can use any set of rules required, including:
+    - Languages
+    - Location
+    - Type of account (e.g. trial vs premium)
+    - Experiments being run
+
+### Performance considerations
+
+For complex app, the number of dependency will quickly become very large. This would become a problem with HTTP/1.1 as the number of concurrent request is usually around 6. But that changes with the introduction of SPDY / HTTP/2.
+
+This new approach can in fact improve dramatically the performance of the apps using Module Injection:
+
+- Only one instance of a Module exist, so there are shared by every apps, instead of having the same code embedded in each app.
+- HTTP/2 multiplexes all the small files efficiently.
+- Server knows all the files the clients needs and uses HTTP Push to sent everything that is needed upfront.
+- Cache API & Services Worker mean individual files can be be cache, and updated in the background.
+- Each Module URL is idempotent, so they can be can efficiently on the server.
+- Static analysis of the files for dependencies only needs to happen once and can then be cached.
